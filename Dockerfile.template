@@ -1,15 +1,12 @@
 FROM balenalib/%%BALENA_ARCH%%-debian-golang:1.17-build as build
 
-WORKDIR /go/src/github.com/rickymoorhouse/weather-go
-
 COPY src/ src/
 
-RUN go mod init && go build /go/src/github.com/rickymoorhouse/weather-go
+RUN cd src && go build 
 
 FROM balenalib/%%BALENA_ARCH%%-debian:latest-run
 
-WORKDIR /go/src/github.com/rickymoorhouse/weather-go
 
-COPY --from=build /go/src/github.com/rickymoorhouse/weather-go .
+COPY --from=build src/weather .
 
-CMD [ "./server" ]
+CMD [ "./weather" ]
