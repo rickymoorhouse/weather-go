@@ -1,12 +1,12 @@
 FROM balenalib/%%BALENA_ARCH%%-debian-golang:1.17-build as build
 
-COPY src/ src/
+COPY src/ /src/
 
-RUN cd src && go build 
+RUN cd /src && go build 
 
 FROM balenalib/%%BALENA_ARCH%%-debian:latest-run
 
 
-COPY --from=build src/weather .
+COPY --from=build /src/weather .
 
 CMD [ "./weather" ]
