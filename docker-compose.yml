@@ -1,0 +1,7 @@
+version: "2"
+
+services:
+  weather-go:
+    build: .
+    ports:
+      - "80:80"
